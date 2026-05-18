@@ -2,9 +2,9 @@
 
 namespace App\Filament\Admin\Resources;
 
-use App\Filament\Admin\Resources\ApprovalResource\Pages;
-use App\Filament\Admin\Resources\ApprovalResource\RelationManagers;
-use App\Models\Approval;
+use App\Filament\Admin\Resources\MessageResource\Pages;
+use App\Filament\Admin\Resources\MessageResource\RelationManagers;
+use App\Models\Message;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ApprovalResource extends Resource
+class MessageResource extends Resource
 {
-    protected static ?string $model = Approval::class;
+    protected static ?string $model = Message::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -56,9 +56,9 @@ class ApprovalResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListApprovals::route('/'),
-            'create' => Pages\CreateApproval::route('/create'),
-            'edit' => Pages\EditApproval::route('/{record}/edit'),
+            'index' => Pages\ListMessages::route('/'),
+            'create' => Pages\CreateMessage::route('/create'),
+            'edit' => Pages\EditMessage::route('/{record}/edit'),
         ];
     }
 }
