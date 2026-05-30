@@ -9,16 +9,20 @@
 {{-- HERO SECTION --}}
 <section class="hero">
     <div class="hero-container">
-        <span class="hero-label">DESIGNER MULTIDISIPLIN</span>
-        <h1 class="hero-title">Membangun Masa Depan<br>Melalui Presisi Visual.</h1>
+        <span class="hero-label">{{ $home->hero_label }}</span>
+        <h1 class="hero-title">
+            {!! nl2br(e($home->hero_title)) !!}
+        </h1>
         <p class="hero-desc">
-            Dengan pengalaman di desain antarmuka dan pengembangan web end-to-end, saya memastikan setiap produk yang saya sentuh terasa sempurna di mata pengguna dan solid di balik layar.
+            {{ $home->hero_description }}
         </p>
         <div class="hero-actions">
-            <a href="{{ route('projects') }}" class="btn-primary">
-                LIHAT PROJECT SAYA <span class="btn-arrow">→</span>
+            <a href="{{ $home->button_project_link }}" class="btn-primary">
+                {{ $home->button_project_text }}
             </a>
-            <a href="{{ route('contact') }}" class="btn-outline">KOLABORASI SEKARANG</a>
+            <a href="{{ $home->button_contact_link }}" class="btn-outline">
+                {{ $home->button_contact_text }}
+            </a>
         </div>
     </div>
 </section>
@@ -30,13 +34,12 @@
         <div class="about-card about-card--text">
             <h2 class="about-card__title">Tentang Saya</h2>
             <p class="about-card__desc">
-                Saya adalah seorang UI/UX Designer sekaligus Fullstack Developer yang berbasis di Tangerang. Saya percaya bahwa desain yang baik bukan hanya soal tampilan — melainkan bagaimana sesuatu bekerja, dirasakan, dan berdampak. Dengan kemampuan di dua sisi produk, saya menjembatani kesenjangan antara visi kreatif dan realitas teknis.
+                {{ $home->about_description }}
             </p>
             <div class="about-card__tags">
-                <span class="tag">STRATEGY</span>
-                <span class="tag">UI/UX DESIGN</span>
-                <span class="tag">FULLSTACK DEVELOPER</span>
-                <span class="tag">MOTION</span>
+                @foreach($home->skills ?? [] as $skill)
+                    <span class="tag">{{ $skill }}</span>
+                @endforeach
             </div>
             <div class="about-card__avatar">
                 <div class="avatar-img" aria-label="Profile photo"></div>
@@ -84,28 +87,13 @@
     <div class="services-container">
         <h2 class="services-title">Keahlian & Layanan</h2>
         <div class="services-list">
-            <div class="service-item">
-                <h3 class="service-name">Fullstack Development</h3>
-                <p class="service-desc">
-                    Saya menulis kode yang bersih, terstruktur, dan mudah di-maintain. Dari API hingga database, dari komponen React hingga server Laravel.
-                </p>
-                <hr class="service-divider">
-            </div>
-            <div class="service-item">
-                <h3 class="service-name">Desain Antarmuka Digital (UI/UX)</h3>
-                <p class="service-desc">
-                    Merancang antarmuka yang intuitif dan pengalaman pengguna yang berdampak — mulai dari riset, wireframe, prototyping, hingga design system yang skalabel.
-                </p>
-                <hr class="service-divider">
-            </div>
-            <div class="service-item">
-                <h3 class="service-name">Konsultasi Kreatif</h3>
-                <p class="service-desc">
-                    Memberikan arahan strategis untuk proyek-proyek kompleks, membantu tim internal
-                    Anda mencapai standar kualitas estetika yang lebih tinggi.
-                </p>
-                <hr class="service-divider">
-            </div>
+            @foreach($home->services ?? [] as $service)
+                <div class="service-item">
+                    <h3 class="service-name">{{ $service['title'] }}</h3>
+                    <p class="service-desc">{{ $service['description'] }}</p>
+                    <hr class="service-divider">
+                </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -113,9 +101,9 @@
 {{-- CTA SECTION --}}
 <section class="cta">
     <div class="cta-container">
-        <p class="cta-sub">Mari buat sesuatu yang luar biasa bersama.</p>
+        <p class="cta-sub">{{ $home->cta_sub }}</p>
         <h2 class="cta-title">
-            Saya selalu terbuka untuk proyek baru, kolaborasi kreatif, dan tantangan yang belum pernah ada sebelumnya.
+            {{ $home->cta_title }}
         </h2>
         <a href="{{ route('contact') }}" class="btn-cta">
             MULAI PERCAKAPAN
