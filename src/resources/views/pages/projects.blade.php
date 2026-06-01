@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Projects | Portfolio - Kinetic Precision')
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
+
+@section('title', 'Projects | Portfolio - Dwiki Dzaki Yudi Putra')
 
 @section('footer-logo', 'PORTFOLIO')
 
@@ -33,110 +37,49 @@
 <section class="projects-grid-section">
     <div class="projects-grid" id="projectsGrid">
 
-        {{-- Project 1 --}}
-        <div class="project-card" data-category="uiux">
-            <div class="project-card__image project-card__image--elevate">
-                <div class="project-mockup">
-                    <div class="mockup-screen">
-                        <div class="mockup-topbar"></div>
-                        <div class="mockup-content">
-                            <div class="mockup-sidebar"></div>
-                            <div class="mockup-body">
-                                <div class="mockup-row"></div>
-                                <div class="mockup-row mockup-row--wide"></div>
-                                <div class="mockup-row"></div>
-                            </div>
-                        </div>
-                    </div>
+        @forelse($projects as $project)
+            <div class="project-card" data-category="{{ strtolower($project->category) }}">
+                <div class="project-card__image">
+                    @if($project->image)
+                        <img
+                            src="{{ Storage::url($project->image) }}"
+                            alt="{{ $project->title }}"
+                            style="width:100%; height:100%; object-fit:cover;"
+                        >
+                    @else
+                        <div class="project-placeholder"></div>
+                    @endif
                 </div>
-            </div>
-            <div class="project-card__meta">
-                <span class="project-tag project-tag--uiux">UI/UX</span>
-                <span class="project-tag project-tag--year">2024</span>
-            </div>
-            <h3 class="project-card__title">Sistem Desain Elevate</h3>
-            <p class="project-card__desc">
-                Membangun fondasi visual yang konsisten untuk platform SaaS skala global
-                dengan fokus pada aksesibilitas.
-            </p>
-            <a href="#" class="project-link">LIHAT PROYEK</a>
-        </div>
 
-        {{-- Project 2 --}}
-        <div class="project-card" data-category="branding">
-            <div class="project-card__image project-card__image--aurora">
-                <div class="branding-mockup">
-                    <div class="brand-box brand-box--lg"></div>
-                    <div class="brand-box brand-box--sm"></div>
-                    <div class="brand-box brand-box--card"></div>
-                </div>
-            </div>
-            <div class="project-card__meta">
-                <span class="project-tag project-tag--branding">BRANDING</span>
-                <span class="project-tag project-tag--year">2023</span>
-            </div>
-            <h3 class="project-card__title">Identitas Visual Aurora</h3>
-            <p class="project-card__desc">
-                Rebranding untuk agensi kreatif yang mengedepankan kesederhanaan
-                dan ketajaman visi di pasar modern.
-            </p>
-            <a href="#" class="project-link">LIHAT PROYEK</a>
-        </div>
+                <div class="project-card__meta">
+                    <span class="project-tag">
+                        {{ strtoupper($project->category) }}
+                    </span>
 
-        {{-- Project 3 --}}
-        <div class="project-card" data-category="webdev">
-            <div class="project-card__image project-card__image--flux">
-                <div class="dashboard-mockup">
-                    <div class="dash-header"></div>
-                    <div class="dash-charts">
-                        <div class="dash-chart dash-chart--bar"></div>
-                        <div class="dash-chart dash-chart--line"></div>
-                    </div>
-                    <div class="dash-stats">
-                        <div class="dash-stat"></div>
-                        <div class="dash-stat"></div>
-                        <div class="dash-stat"></div>
-                    </div>
+                    <span class="project-tag project-tag--year">
+                        {{ $project->created_at->format('Y') }}
+                    </span>
                 </div>
-            </div>
-            <div class="project-card__meta">
-                <span class="project-tag project-tag--webdev">WEB DEV</span>
-                <span class="project-tag project-tag--year">2024</span>
-            </div>
-            <h3 class="project-card__title">Dashboard Analitik Flux</h3>
-            <p class="project-card__desc">
-                Interface aplikasi web yang kompleks namun intuitif, dirancang untuk
-                mengelola data real-time dalam jumlah besar.
-            </p>
-            <a href="#" class="project-link">LIHAT PROYEK</a>
-        </div>
 
-        {{-- Project 4 --}}
-        <div class="project-card" data-category="uiux">
-            <div class="project-card__image project-card__image--zen">
-                <div class="mobile-mockup">
-                    <div class="mobile-device mobile-device--1">
-                        <div class="mobile-screen"></div>
-                    </div>
-                    <div class="mobile-device mobile-device--2">
-                        <div class="mobile-screen mobile-screen--2"></div>
-                    </div>
-                    <div class="mobile-device mobile-device--3">
-                        <div class="mobile-screen"></div>
-                    </div>
-                </div>
+                <h3 class="project-card__title">
+                    {{ $project->title }}
+                </h3>
+
+                <p class="project-card__desc">
+                    {{ $project->description }}
+                </p>
+
+                @if($project->project_url)
+                    <a href="{{ $project->project_url }}"
+                    target="_blank"
+                    class="project-link">
+                        LIHAT PROYEK
+                    </a>
+                @endif
             </div>
-            <div class="project-card__meta">
-                <span class="project-tag project-tag--uiux">UI/UX</span>
-                <span class="project-tag project-tag--year">2023</span>
-            </div>
-            <h3 class="project-card__title">Aplikasi Gaya Hidup Zen</h3>
-            <p class="project-card__desc">
-                Pengalaman mobile yang tenang dan terfokus, menghilangkan distraksi visual
-                untuk meningkatkan kesejahteraan pengguna.
-            </p>
-            <a href="#" class="project-link">LIHAT PROYEK</a>
-        </div>
+        @empty
+            <p>Belum ada project.</p>
+        @endforelse
 
     </div>
 </section>
