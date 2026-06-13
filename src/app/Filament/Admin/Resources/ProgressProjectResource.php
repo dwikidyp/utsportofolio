@@ -3,27 +3,50 @@
 namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\ProgressProjectResource\Pages;
-use App\Filament\Admin\Resources\ProgressProjectResource\RelationManagers;
 use App\Models\ProgressProject;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProgressProjectResource extends Resource
 {
     protected static ?string $model = ProgressProject::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Data Management';
+    protected static ?int $navigationSort = 3;
+    protected static ?string $label = 'Progress Project';
+    protected static ?string $pluralLabel = 'Progress Projects';
+
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                TextInput::make('technology')
+                    ->required(),
+
+                TextInput::make('title')
+                    ->required(),
+
+                Textarea::make('description')
+                    ->required(),
+
+                TextInput::make('year')
+                    ->numeric(),
+
+                TextInput::make('sort_order')
+                    ->numeric()
+                    ->default(0),
+
+                FileUpload::make('image')
+                    ->image()
+                    ->directory('progress-projects'),
             ]);
     }
 
@@ -31,7 +54,17 @@ class ProgressProjectResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('technology'),
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('year'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

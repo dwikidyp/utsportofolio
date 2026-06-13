@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 use App\Http\Controllers\PortfolioController;
 use App\Models\HomeSetting;
+use App\Models\ProgressProject;
 use App\Models\Project;
 
 /* NOTE: Do Not Remove
@@ -32,7 +33,15 @@ Route::get('/projects', function () {
     return view('pages.projects', compact('projects'));
 })->name('projects');
 
-Route::get('/progress', [PortfolioController::class, 'progress'])->name('progress');
+Route::get('/progress', function () {
+
+    $progressProjects = ProgressProject::orderBy('sort_order')
+        ->get();
+
+    return view('pages.progress', compact('progressProjects'));
+
+})->name('progress');
+
 Route::get('/contact', [PortfolioController::class, 'contact'])->name('contact');
 Route::post('/contact', [PortfolioController::class, 'send'])->name('contact.send');
 

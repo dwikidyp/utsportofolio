@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 UTS Portofolio
+# 🚀 UTS Portofolio Dwiki Dzaki Yudi Putra
 
 **Aplikasi web portofolio berbasis PHP yang dijalankan menggunakan Docker dengan stack Nginx + PHP-FPM + MariaDB.**
 
@@ -31,5 +31,17 @@
 ## 📖 Tentang Proyek
 
 UTS Portofolio adalah aplikasi web portofolio yang dibangun menggunakan PHP dan Laravel (Blade templating engine). Proyek ini dikontainerisasi menggunakan Docker untuk memastikan konsistensi lingkungan pengembangan di berbagai platform.
+
+---
+
+## 🛠 Teknologi yang Digunakan
+
+| Komponen | Teknologi | Versi |
+|----------|-----------|-------|
+| Backend | PHP | 8.x |
+| Template Engine | Laravel Blade | - |
+| Web Server | Nginx | Latest |
+| Database | MariaDB | 10.11 |
+| Kontainerisasi | Docker & Docker Compose | 3.8 |
 
 ---
